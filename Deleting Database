@@ -1,0 +1,22 @@
+xyz=str(raw_input("Enter an employee name to delete an entry"))
+import MySQLdb
+
+# Open database connection
+db = MySQLdb.connect("localhost","root","chinmay","testdb" )
+
+# prepare a cursor object using cursor() method
+cursor = db.cursor()
+
+# Prepare SQL query to DELETE required records
+sql = "DELETE FROM EMPLOYEE WHERE FIRST_NAME ='%s'" % (xyz)
+try:
+   # Execute the SQL command
+   cursor.execute(sql)
+   # Commit your changes in the database
+   db.commit()
+except:
+   # Rollback in case there is any error
+   db.rollback()
+
+# disconnect from server
+db.close()
